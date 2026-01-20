@@ -339,21 +339,6 @@ export default function Home() {
                   playsInline
                 />
               </div>
-
-              {/* CTA Consultanos - Al lado derecho del video */}
-              <a 
-                href="#contacto"
-                className="flex flex-col items-center justify-center gap-2 text-center group h-56 md:h-[500px] lg:h-[550px]"
-              >
-                <span className="text-lg lg:text-xl font-bold text-[#0d306c] font-playfair group-hover:text-[#e74144] transition">
-                  Consultanos!
-                </span>
-                <div className="text-[#0d306c] group-hover:text-[#e74144] transition">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                  </svg>
-                </div>
-              </a>
             </div>
 
             {/* Texto segundo en mobile, primero en desktop */}
