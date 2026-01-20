@@ -43,28 +43,19 @@ export default function Home() {
     setIsSubmitting(true);
     setSubmitMessage('');
 
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+    // Simular envío (sin backend por ahora)
+    setTimeout(() => {
+      setSubmitMessage('¡Gracias por tu interés! Nos pondremos en contacto contigo pronto.');
+      setFormData({
+        nombre: '',
+        email: '',
+        telefono: '',
+        presupuesto: '',
+        mensaje: '',
+        fechaEstimada: ''
       });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setSubmitMessage('¡Gracias por tu interés! Hemos recibido tu solicitud y nos pondremos en contacto contigo pronto.');
-        setFormData({ nombre: '', email: '', telefono: '', presupuesto: '', mensaje: '', fechaEstimada: '' });
-      } else {
-        setSubmitMessage('Hubo un error al enviar el formulario. Por favor, intenta nuevamente.');
-      }
-    } catch (error) {
-      setSubmitMessage('Hubo un error al enviar el formulario. Por favor, intenta nuevamente.');
-    } finally {
       setIsSubmitting(false);
-    }
+    }, 1000);
   };
 
   const features = [
