@@ -1,25 +1,14 @@
 'use client';
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [heroSlide, setHeroSlide] = useState(0);
   const [gallerySlide, setGallerySlide] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImageIndex, setModalImageIndex] = useState(0);
-  
-  const slides = [
-    { type: 'image', src: '/casa1.png' },
-    { type: 'image', src: '/casa2.png' },
-    { type: 'video', src: '/casa3.mp4' },
-    { type: 'image', src: '/casa4.png' },
-    { type: 'image', src: '/casa5.png' },
-    { type: 'image', src: '/casa6.png' },
-    { type: 'image', src: '/casa7.png' },
-  ];
 
   const heroSlides = [
     { type: 'image', src: '/casa1.png' },
@@ -71,15 +60,6 @@ export default function Home() {
   const prevModalImage = () => {
     setModalImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
   };
-
-  // Auto-advance slides every 4 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4000);
-
-    return () => clearInterval(timer);
-  }, [slides.length]);
 
   const [formData, setFormData] = useState({
     nombre: '',
@@ -257,11 +237,15 @@ export default function Home() {
               <div className="relative h-80 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl group bg-gray-900">
                 {/* Slide actual */}
                 {heroSlides[heroSlide].type === 'image' ? (
-                  <img
+                  <Image
                     key={`hero-${heroSlide}`}
                     src={heroSlides[heroSlide].src}
                     alt={`Vista ${heroSlide + 1} de la propiedad`}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    priority={heroSlide === 0}
+                    quality={85}
+                    sizes="(max-width: 768px) 100vw, 60vw"
                   />
                 ) : (
                   <video
@@ -343,7 +327,7 @@ export default function Home() {
             {/* Contenedor para video + CTA */}
             <div className="order-1 md:order-2 flex flex-col md:flex-row gap-6 items-center md:items-start md:justify-self-end">
               {/* Video - Más angosto y vertical */}
-              <div className="relative h-80 md:h-[500px] lg:h-[550px] w-full md:w-80 lg:w-96 rounded-xl lg:rounded-2xl overflow-hidden shadow-xl lg:shadow-2xl bg-gray-900 flex-shrink-0">
+              <div className="relative h-56 md:h-[500px] lg:h-[550px] w-full md:w-80 lg:w-96 rounded-xl lg:rounded-2xl overflow-hidden shadow-xl lg:shadow-2xl bg-gray-900 flex-shrink-0">
                 {/* Video de Cloudinary */}
                 <video
                   src="https://res.cloudinary.com/dlxuigjrd/video/upload/v1768853781/alibroker_p3wr2g.mp4"
@@ -359,7 +343,7 @@ export default function Home() {
               {/* CTA Consultanos - Al lado derecho del video */}
               <a 
                 href="#contacto"
-                className="flex flex-col items-center justify-center gap-2 text-center group h-80 md:h-[500px] lg:h-[550px]"
+                className="flex flex-col items-center justify-center gap-2 text-center group h-56 md:h-[500px] lg:h-[550px]"
               >
                 <span className="text-lg lg:text-xl font-bold text-[#0d306c] font-playfair group-hover:text-[#e74144] transition">
                   Consultanos!
@@ -515,10 +499,14 @@ export default function Home() {
                   onClick={() => openModal(gallerySlide + idx)}
                   className="relative h-56 md:h-64 rounded-lg lg:rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform cursor-pointer"
                 >
-                  <img
+                  <Image
                     src={src}
                     alt={`Vista ${gallerySlide + idx + 1} de la propiedad`}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    loading="lazy"
+                    quality={80}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 </div>
               ))}
@@ -766,10 +754,14 @@ export default function Home() {
               className="relative w-full h-full flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <Image
                 src={galleryImages[modalImageIndex]}
                 alt={`Vista ${modalImageIndex + 1} de la propiedad`}
-                className="max-w-full max-h-full object-contain"
+                width={1920}
+                height={1080}
+                className="max-w-full max-h-full object-contain w-auto h-auto"
+                quality={90}
+                priority
               />
             </div>
 
