@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Email del propietario/empresa
 const OWNER_EMAIL = 'tinchorodriguez918@gmail.com';
-const FROM_EMAIL = 'Ali Broker <info@alibroker-propiedades.com>'; 
+const FROM_EMAIL = 'Ali Broker <info@alibroker-propiedades.com>'; // Cambiar por dominio verificado en producción
 
 interface ContactFormData {
   nombre: string;
@@ -49,7 +49,6 @@ export async function POST(request: NextRequest) {
                   <!-- Header -->
                   <tr>
                     <td style="background-color: #0d306c; padding: 30px; text-align: center;">
-                      <img src="https://res.cloudinary.com/dlxuigjrd/image/upload/v1768955683/ALIBROKERLogo2019_1.Pdf_-_1_m3qv5q.png" alt="Ali Broker" width="120" style="margin-bottom: 15px;" />
                       <h1 style="color: #ffffff; margin: 0; font-size: 24px;">Nueva Consulta Recibida</h1>
                     </td>
                   </tr>
@@ -149,7 +148,6 @@ export async function POST(request: NextRequest) {
                   <!-- Header -->
                   <tr>
                     <td style="background-color: #0d306c; padding: 30px; text-align: center;">
-                      <img src="https://res.cloudinary.com/dlxuigjrd/image/upload/v1768955683/ALIBROKERLogo2019_1.Pdf_-_1_m3qv5q.png" alt="Ali Broker" width="120" style="margin-bottom: 15px;" />
                       <h1 style="color: #ffffff; margin: 0; font-size: 24px;">¡Gracias por contactarnos!</h1>
                     </td>
                   </tr>
