@@ -15,6 +15,7 @@
   --font-playfair: var(--font-playfair);
 }
 
+/* Mantener colores claros siempre (no dark mode) */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #ffffff;
@@ -30,4 +31,55 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Optimización de fuente Playfair */
+.font-playfair {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+/* Optimización de animaciones - reduce motion para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Skeleton loader animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Optimización de imágenes - prevenir layout shift */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Focus visible para accesibilidad */
+:focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+}
+
+/* Mejora de rendimiento en scrolling */
+.overflow-hidden {
+  -webkit-overflow-scrolling: touch;
 }
