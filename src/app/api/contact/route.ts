@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Email del propietario/empresa
-const OWNER_EMAIL = 'tinchorodriguez918@gmail.com';
+const OWNER_EMAIL = 'ali@alibroker.com.ar';
 const FROM_EMAIL = 'Ali Broker <info@alibroker-propiedades.com>'; // Cambiar por dominio verificado en producción
 
 interface ContactFormData {
