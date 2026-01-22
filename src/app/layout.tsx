@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import MetaPixel from "./components/MetaPixel";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: "swap", // Mejora CLS
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -41,13 +42,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_AR",
-    url: "https://alibroker.com", // Actualizar con URL real
+    url: "https://alibroker.com",
     title: "Exclusiva Casa en Altos de Campo Grande | Ali Broker",
     description: "Propiedad de 510m² cubiertos sobre 1600m² de terreno. Sistema Béton Brut, piscina 12x5, sauna, gimnasio y ático.",
     siteName: "Ali Broker",
     images: [
       {
-        url: "/casa1.png", // Actualizar con URL completa en producción
+        url: "/casa1.png",
         width: 1200,
         height: 630,
         alt: "Casa exclusiva en Altos de Campo Grande",
@@ -74,7 +75,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="preconnect" href="https://www.google.com" />
         <link rel="preconnect" href="https://maps.googleapis.com" />
+        <link rel="preconnect" href="https://connect.facebook.net" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://connect.facebook.net" />
         
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -82,6 +85,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
       >
+        <MetaPixel />
         {children}
       </body>
     </html>

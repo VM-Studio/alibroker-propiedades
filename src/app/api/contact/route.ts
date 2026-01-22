@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { sendLeadEvent } from '@/app/lib/meta-conversions';
+
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Email del propietario/empresa
 const OWNER_EMAIL = 'ali@alibroker.com.ar';
 const FROM_EMAIL = 'Ali Broker <info@alibroker-propiedades.com>'; // Cambiar por dominio verificado en producción
-
 interface ContactFormData {
   nombre: string;
   email: string;
@@ -49,6 +50,7 @@ export async function POST(request: NextRequest) {
                   <!-- Header -->
                   <tr>
                     <td style="background-color: #0d306c; padding: 30px; text-align: center;">
+                      <img src="https://res.cloudinary.com/dlxuigjrd/image/upload/v1768955683/ALIBROKERLogo2019_1.Pdf_-_1_m3qv5q.png" alt="Ali Broker" width="120" style="margin-bottom: 15px;" />
                       <h1 style="color: #ffffff; margin: 0; font-size: 24px;">Nueva Consulta Recibida</h1>
                     </td>
                   </tr>
@@ -148,6 +150,7 @@ export async function POST(request: NextRequest) {
                   <!-- Header -->
                   <tr>
                     <td style="background-color: #0d306c; padding: 30px; text-align: center;">
+                      <img src="https://res.cloudinary.com/dlxuigjrd/image/upload/v1768955683/ALIBROKERLogo2019_1.Pdf_-_1_m3qv5q.png" alt="Ali Broker" width="120" style="margin-bottom: 15px;" />
                       <h1 style="color: #ffffff; margin: 0; font-size: 24px;">¡Gracias por contactarnos!</h1>
                     </td>
                   </tr>
@@ -243,6 +246,29 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Enviar evento Lead a Meta Conversions API
+    const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0] || 
+                     request.headers.get('x-real-ip') || 
+                     'unknown';
+    const userAgent = request.headers.get('user-agent') || 'unknown';
+    const referer = request.headers.get('referer') || undefined;
+
+    // Enviar a Meta (no bloqueante - no esperamos respuesta)
+    sendLeadEvent({
+      email,
+      phone: telefono,
+      firstName: nombre,
+      clientIpAddress: clientIp,
+      clientUserAgent: userAgent,
+      eventSourceUrl: referer,
+    }).then(result => {
+      if (!result.success) {
+        console.error('Error enviando Lead a Meta:', result.error);
+      }
+    }).catch(err => {
+      console.error('Error en Meta Conversions:', err);
+    });
 
     return NextResponse.json(
       { 
