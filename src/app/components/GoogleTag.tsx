@@ -32,7 +32,7 @@ export default function GoogleTag() {
 // conversionLabel lo obtenés de Google Ads al crear la acción de conversión
 export function trackGoogleConversion(conversionLabel?: string) {
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-    const label = conversionLabel || process.env.NEXT_PUBLIC_GOOGLE_CONVERSION_LABEL || '';
+    const label = conversionLabel || process.env.NEXT_PUBLIC_GOOGLE_CONVERSION_LABEL || '1GzOCI3vqPAbEOmRyuFC';
     
     window.gtag('event', 'conversion', {
       'send_to': `${GOOGLE_ADS_ID}/${label}`,
