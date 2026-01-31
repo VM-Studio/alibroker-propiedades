@@ -3,7 +3,7 @@
 import Script from 'next/script';
 
 // Reemplazar con tu ID de Google Ads (formato: AW-XXXXXXXXX)
-const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-XXXXXXXXX';
+const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-17921378537';
 
 export default function GoogleTag() {
   return (
